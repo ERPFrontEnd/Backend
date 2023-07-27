@@ -63,10 +63,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	} 
 	
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
-		authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
-	}
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
+//		authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
+//	}
 
 
 }

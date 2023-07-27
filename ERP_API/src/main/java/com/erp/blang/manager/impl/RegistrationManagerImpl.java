@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -68,7 +69,7 @@ public class RegistrationManagerImpl implements RegistrationManager {
 //	@Autowired
 //	CompanyRepo companyRepo;
 	
-	@Autowired BCryptPasswordEncoder passwordEncoder;
+	@Autowired PasswordEncoder passwordEncoder;
 
 	@Autowired
 	TwilioAccountConfiguration twilioConfig;
