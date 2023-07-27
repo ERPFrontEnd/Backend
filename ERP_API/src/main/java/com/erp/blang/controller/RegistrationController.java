@@ -18,7 +18,7 @@ import com.erp.blang.utilities.APIEndpoints;
 import com.twilio.Twilio;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping(path = APIEndpoints.BASE_API_URL_V1 + "/registration")
 public class RegistrationController {
 

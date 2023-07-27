@@ -27,15 +27,15 @@ public class ErpApiApplication implements WebMvcConfigurer {
 		SpringApplication.run(ErpApiApplication.class, args);
 	}
 	
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override            
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
-            }
-        };
-    }
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override            
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
+//            }
+//        };
+//    }
 
 	@Bean
 	public Docket productApi() {

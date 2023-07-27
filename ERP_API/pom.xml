@@ -8,7 +8,7 @@
 		<version>2.6.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.erp</groupId>
+	<groupId>com.erp.blang</groupId>
 	<artifactId>ERP_API</artifactId>
 	<version>1</version>
 	<name>ERP_API</name>

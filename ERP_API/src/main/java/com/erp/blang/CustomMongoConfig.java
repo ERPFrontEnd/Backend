@@ -3,7 +3,7 @@ package com.erp.blang;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -13,7 +13,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "com.erp.blang.repository") // Replace with your repository package
+//@EnableMongoRepositories(basePackages = "com.erp.blang.repository") // Replace with your repository package
 public class CustomMongoConfig extends AbstractMongoClientConfiguration {
 
 //    @Value("${spring.data.mongodb.uri}")

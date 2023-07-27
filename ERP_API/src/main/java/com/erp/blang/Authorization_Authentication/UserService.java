@@ -8,10 +8,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,7 +19,6 @@ import org.springframework.stereotype.Service;
 import com.erp.blang.dto.RoleDTO;
 import com.erp.blang.model.Roles;
 import com.erp.blang.model.Users;
-import com.erp.blang.repository.RoleRepository;
 import com.erp.blang.repository.UserRepository;
 import com.erp.blang.responsehandle.ResponseHandler;
 		
@@ -31,8 +26,8 @@ import com.erp.blang.responsehandle.ResponseHandler;
 @Service
 public class UserService implements UserDetailsService {
 
-	@Autowired
-	private RoleRepository roleRepo;	
+//	@Autowired
+//	private RoleRepository roleRepo;	
 	
 	@Autowired
 	private UserRepository userRepo;
