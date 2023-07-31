@@ -9,17 +9,14 @@ import java.util.Set;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 
 import com.erp.blang.Authorization_Authentication.JWTUtility;
 import com.erp.blang.Authorization_Authentication.RequestFilter;
@@ -73,10 +70,6 @@ public class RegistrationManagerImpl implements RegistrationManager {
 
 	@Autowired
 	TwilioAccountConfiguration twilioConfig;
-	
-	@Autowired JWTUtility jwtUtility;
-	
-	@Autowired RequestFilter filter;
 
 	/*
 	 * 
@@ -155,7 +148,8 @@ public class RegistrationManagerImpl implements RegistrationManager {
 				MessageCreator creator = Message.creator(to, from, message);
 				creator.create();
 			} catch (Exception e) {
-				return ResponseHandler.responseBuilder(HttpStatus.BAD_REQUEST, "Try Again");
+				 e.printStackTrace();
+				return ResponseHandler.responseBuilder(HttpStatus.BAD_REQUEST, "Try Again TWILIO ISSUE");
 			}
 			return ResponseHandler.responseBuilder(HttpStatus.CREATED, message);
 		}

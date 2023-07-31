@@ -11,10 +11,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.erp.blang.dto.Columns;
 import com.erp.blang.model.message.Messages;
@@ -207,11 +204,11 @@ public abstract class GenericController {
 		}
 	}
 	
-	protected String getLoggedInUserName() {
-
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-				.getPrincipal();
-		return userDetails.getUsername();
-	}
+//	protected String getLoggedInUserName() {
+//
+//		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+//				.getPrincipal();
+//		return userDetails.getUsername();
+//	}
 
 }

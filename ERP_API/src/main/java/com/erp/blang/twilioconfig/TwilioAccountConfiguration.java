@@ -7,34 +7,32 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("twilio")
 public class TwilioAccountConfiguration {
 
-	private String accountSid;
+    private String accountSid;
+    private String authToken;
+    private String trailNumber = "+13642048853";
 
-	private String authToken;
+    public String getAccountSid() {
+        return accountSid;
+    }
 
-	private String trailNumber = "+14302456566";
+    public void setAccountSid(String accountSid) {
+        this.accountSid = accountSid;
+    }
 
-	public String getAccountSid() {
-		return accountSid;
-	}
+    public String getAuthToken() {
+        return authToken;
+    }
 
-	public void setAccountSid(String accountSid) {
-		this.accountSid = accountSid;
-	}
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
 
-	public String getAuthToken() {
-		return authToken;
-	}
+    public String getTrailNumber() {
+        return trailNumber;
+    }
 
-	public void setAuthToken(String authToken) {
-		this.authToken = authToken;
-	}
-
-	public String getTrailNumber() {
-		return trailNumber;
-	}
-
-	public void setTrailNumber(String trailNumber) {
-		this.trailNumber = trailNumber;
-	}
+    public void setTrailNumber(String trailNumber) {
+        this.trailNumber = trailNumber;
+    }
 
 }

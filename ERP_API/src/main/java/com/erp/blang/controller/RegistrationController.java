@@ -31,26 +31,31 @@ public class RegistrationController {
 	@CrossOrigin
 	@PostMapping(value = "/emailOTP")
 	public ResponseEntity<Object> emailOtp(@RequestBody RegistrationDto mail) throws MessagingException {
+		System.out.println(mail.getEmail());
 		return registrationManager.mailSender(mail);
 	}
 
+	@CrossOrigin
 	@PostMapping(value = "/mobileOTP")
 	public ResponseEntity<Object> mobileOtp(@RequestBody RegistrationDto mobileNo) {
 		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
 		return registrationManager.mobileOtpSender(mobileNo);
 	}
 
+	@CrossOrigin
 	@PostMapping(value = "/voiceOTP")
 	public ResponseEntity<Object> voiceOtp(@RequestBody RegistrationDto mobileNo)  {
 		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
 		return registrationManager.voiceOtpSender(mobileNo);
 	}
 
+	@CrossOrigin
 	@PostMapping(value = "/verifyOTP")
 	public ResponseEntity<Object> verifyOtp(@RequestBody OtpDto otp) {
 		return registrationManager.otpVerify(otp);
 	}
 
+	@CrossOrigin
 	@PostMapping(value = "/saveAdmin")
 	public ResponseEntity<Object> saveAdmin(@RequestBody RegistrationDto regisDto) {
 		return registrationManager.save(regisDto);
