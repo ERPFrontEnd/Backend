@@ -17,7 +17,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 @SpringBootApplication
-public class ErpApiApplication {
+public class ErpApiApplication implements WebMvcConfigurer  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ErpApiApplication.class, args);

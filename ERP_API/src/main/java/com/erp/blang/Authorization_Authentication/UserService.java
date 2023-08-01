@@ -1,7 +1,9 @@
 package com.erp.blang.Authorization_Authentication;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
@@ -17,8 +19,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.erp.blang.dto.RoleDTO;
+import com.erp.blang.model.Registration;
 import com.erp.blang.model.Roles;
 import com.erp.blang.model.Users;
+import com.erp.blang.repository.RegistrationRepository;
 import com.erp.blang.repository.UserRepository;
 import com.erp.blang.responsehandle.ResponseHandler;
 		
@@ -31,6 +35,9 @@ public class UserService implements UserDetailsService {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private RegistrationRepository registrationRepo;
 
 	@Autowired
 	private JWTUtility utility;
@@ -47,15 +54,16 @@ public class UserService implements UserDetailsService {
 		LoginResponse lr = new LoginResponse();
 
 		
-		Users users = userRepo.findByEmail(email);
-		if(users != null && userDetails != null && password != null && email != null) {
+//		Users users = userRepo.findByEmail(email);
+		if(userDetails != null && password != null && email != null) {
 			
-		BeanUtils.copyProperties(users, lr);
+//		BeanUtils.copyProperties(users, lr);
 		
 		lr.setJwtToken(newGeneratedToken);
-		Roles rolesModel = new Roles();
-		RoleDTO rolesDto = new RoleDTO();
-		BeanUtils.copyProperties(rolesModel, rolesDto);
+		lr.setEmail(loginReq.getUserName());
+//		Roles rolesModel = new Roles();
+//		RoleDTO rolesDto = new RoleDTO();
+//		BeanUtils.copyProperties(rolesModel, rolesDto);
 		return ResponseHandler.responseBuilder(HttpStatus.ACCEPTED,lr);
 		}
 		else {
@@ -63,18 +71,19 @@ public class UserService implements UserDetailsService {
 		}
 	}
 
-	private Set<GrantedAuthority> getAuthorities(Users userModel) {
-	    Set<GrantedAuthority> authorities = new HashSet<>();
-	    userModel.getRoleName().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName())));
-	    return authorities;
-	}
+//	private Set<GrantedAuthority> getAuthorities(Registration userOptional) {
+//	    Set<GrantedAuthority> authorities = new HashSet<>();
+//	    userOptional.getRoleName().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName())));
+//	    return authorities;
+//	}
 
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-	    Users userOptional = userRepo.findByEmail(email);
+	    Registration userOptional = registrationRepo.findByEmail(email);
 	    if (userOptional != null) {
-	    	Set<GrantedAuthority> authorities = getAuthorities(userOptional);
+//	    	Set<GrantedAuthority> authorities = getAuthorities(userOptional);
+	    	List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		    return new User(userOptional.getEmail(), userOptional.getPassword(), authorities);
 	        // Return a UserDetails object with "No user" as the username and empty password and authorities  
 	    }
