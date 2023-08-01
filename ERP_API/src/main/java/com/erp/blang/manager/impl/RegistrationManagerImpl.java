@@ -187,7 +187,7 @@ public class RegistrationManagerImpl implements RegistrationManager {
 	public ResponseEntity<Object> save(RegistrationDto regDto) {
 		Registration findRegistrationinDb=registrationRepo.findByEmail(regDto.getEmail());
 		if(findRegistrationinDb!=null) {
-			return ResponseHandler.responseBuilder(HttpStatus.ALREADY_REPORTED, "User AlreadyExists");
+			return ResponseHandler.responseBuilder(HttpStatus.ALREADY_REPORTED, false);
 		}
 		else {
 //		String adminRole = "Admin";
