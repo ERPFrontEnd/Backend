@@ -11,11 +11,13 @@ public class Registration extends BaseModel{
 
 	private String email;
 	
-	private String countryCode;
+//	private String countryCode;
+//
+//	private String mobileNo;
 
-	private String mobileNo;
-
-	private String name;
+	private String firstName;
+	
+	private String lastName;
 
 	private String password;
 
@@ -26,6 +28,22 @@ public class Registration extends BaseModel{
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
 	public String getEmail() {
 		return email;
@@ -35,13 +53,13 @@ public class Registration extends BaseModel{
 		this.email = email;
 	}
 
-	public String getMobileNo() {
-		return mobileNo;
-	}
-
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
-	}
+//	public String getMobileNo() {
+//		return mobileNo;
+//	}
+//
+//	public void setMobileNo(String mobileNo) {
+//		this.mobileNo = mobileNo;
+//	}
 	public String getPassword() {
 		return password;
 	}
@@ -50,19 +68,12 @@ public class Registration extends BaseModel{
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCountryCode() {
-		return countryCode;
-	}
-
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-	}
+//	public String getCountryCode() {
+//		return countryCode;
+//	}
+//
+//	public void setCountryCode(String countryCode) {
+//		this.countryCode = countryCode;
+//	}
 }

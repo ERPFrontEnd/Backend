@@ -80,9 +80,9 @@ public class RegistrationManagerImpl implements RegistrationManager {
 	public ResponseEntity<Object> mailSender(RegistrationDto mail) throws MessagingException {
 
 		
-		Set<Registration> mailInDb = registrationRepo.findByEmail(mail.getEmail());
+		Registration mailInDb = registrationRepo.findByEmail(mail.getEmail());
 
-		if (!mailInDb.isEmpty()) {
+		if (mailInDb != null) {
 			return ResponseHandler.responseBuilder(HttpStatus.ALREADY_REPORTED, "Mail already Exists");
 		} else {
 			MimeMessage mimeMessage = mailSender1.createMimeMessage();
@@ -132,52 +132,52 @@ public class RegistrationManagerImpl implements RegistrationManager {
 	}
 
 
-	@Override
-	public ResponseEntity<Object> mobileOtpSender(RegistrationDto regMobileNumber) {
-		Set<Registration> findMobileInDb = registrationRepo.findByMobileNo(regMobileNumber.getMobileNo());
-		if (!findMobileInDb.isEmpty()) {
-			return ResponseHandler.responseBuilder(HttpStatus.ALREADY_REPORTED, "Already Registred");
-		} else {
-			String message;
-			String mobile =  regMobileNumber.getCountryCode() + regMobileNumber.getMobileNo();
-			this.otpgenerated = generateOTP();
-			try {
-				PhoneNumber to = new PhoneNumber(mobile);
-				PhoneNumber from = new PhoneNumber(twilioConfig.getTrailNumber());
-				message = this.otpgenerated + " This is Verification Code for Versatile ERP";
-				MessageCreator creator = Message.creator(to, from, message);
-				creator.create();
-			} catch (Exception e) {
-				 e.printStackTrace();
-				return ResponseHandler.responseBuilder(HttpStatus.BAD_REQUEST, "Try Again TWILIO ISSUE");
-			}
-			return ResponseHandler.responseBuilder(HttpStatus.CREATED, message);
-		}
+//	@Override
+//	public ResponseEntity<Object> mobileOtpSender(RegistrationDto regMobileNumber) {
+//		Set<Registration> findMobileInDb = registrationRepo.findByMobileNo(regMobileNumber.getMobileNo());
+//		if (!findMobileInDb.isEmpty()) {
+//			return ResponseHandler.responseBuilder(HttpStatus.ALREADY_REPORTED, "Already Registred");
+//		} else {
+//			String message;
+//			String mobile =  regMobileNumber.getCountryCode() + regMobileNumber.getMobileNo();
+//			this.otpgenerated = generateOTP();
+//			try {
+//				PhoneNumber to = new PhoneNumber(mobile);
+//				PhoneNumber from = new PhoneNumber(twilioConfig.getTrailNumber());
+//				message = this.otpgenerated + " This is Verification Code for Versatile ERP";
+//				MessageCreator creator = Message.creator(to, from, message);
+//				creator.create();
+//			} catch (Exception e) {
+//				 e.printStackTrace();
+//				return ResponseHandler.responseBuilder(HttpStatus.BAD_REQUEST, "Try Again TWILIO ISSUE");
+//			}
+//			return ResponseHandler.responseBuilder(HttpStatus.CREATED, message);
+//		}
+//
+//	}
 
-	}
-
-	@Override
-	public ResponseEntity<Object> voiceOtpSender(RegistrationDto mobileNo) {
-		Set<Registration> findMobileInDb = registrationRepo.findByMobileNo(mobileNo.getMobileNo());
-		if (!findMobileInDb.isEmpty()) {
-			return ResponseHandler.responseBuilder(HttpStatus.ALREADY_REPORTED, "Already Registred");
-		} else {
-			
-			String mobile =  mobileNo.getCountryCode() + mobileNo.getMobileNo();
-			this.otpgenerated = generateOTP();
-
-			// Create the TwiML response
-			Say say = new Say.Builder("Your OTP code for Versatile E R P is " + this.otpgenerated)
-					.voice(Say.Voice.WOMAN).language(Language.EN_IN).build();
-			VoiceResponse response = new VoiceResponse.Builder().say(say).build();
-
-			// Make the call using Twilio
-			 Call.creator(new com.twilio.type.PhoneNumber(mobile),
-					new com.twilio.type.PhoneNumber(twilioConfig.getTrailNumber()),
-					new com.twilio.type.Twiml(response.toXml())).create();
-			return ResponseHandler.responseBuilder(HttpStatus.CREATED, this.otpgenerated);
-		}
-	}
+//	@Override
+//	public ResponseEntity<Object> voiceOtpSender(RegistrationDto mobileNo) {
+//		Set<Registration> findMobileInDb = registrationRepo.findByMobileNo(mobileNo.getMobileNo());
+//		if (!findMobileInDb.isEmpty()) {
+//			return ResponseHandler.responseBuilder(HttpStatus.ALREADY_REPORTED, "Already Registred");
+//		} else {
+//			
+//			String mobile =  mobileNo.getCountryCode() + mobileNo.getMobileNo();
+//			this.otpgenerated = generateOTP();
+//
+//			// Create the TwiML response
+//			Say say = new Say.Builder("Your OTP code for Versatile E R P is " + this.otpgenerated)
+//					.voice(Say.Voice.WOMAN).language(Language.EN_IN).build();
+//			VoiceResponse response = new VoiceResponse.Builder().say(say).build();
+//
+//			// Make the call using Twilio
+//			 Call.creator(new com.twilio.type.PhoneNumber(mobile),
+//					new com.twilio.type.PhoneNumber(twilioConfig.getTrailNumber()),
+//					new com.twilio.type.Twiml(response.toXml())).create();
+//			return ResponseHandler.responseBuilder(HttpStatus.CREATED, this.otpgenerated);
+//		}
+//	}
 	/*
 	 * 
 	 * FOR REGISTRATION AND SAVING ADMIN IN USERS TABLE
@@ -185,28 +185,33 @@ public class RegistrationManagerImpl implements RegistrationManager {
 	 */
 	@Override
 	public ResponseEntity<Object> save(RegistrationDto regDto) {
-		String adminRole = "Admin";
+		Registration findRegistrationinDb=registrationRepo.findByEmail(regDto.getEmail());
+		if(findRegistrationinDb!=null) {
+			return ResponseHandler.responseBuilder(HttpStatus.ALREADY_REPORTED, "User AlreadyExists");
+		}
+		else {
+//		String adminRole = "Admin";
 		Registration regModel = new Registration();
 		BeanUtils.copyProperties(regDto, regModel);
-		DateUtils.setBaseData(regModel, "System");
-		Roles arole = roleRepo.findByRoleName(adminRole);
-		Set<Roles> roleSet = new HashSet<>();
-		Roles roleModel = arole;
-		if (roleModel != null) {
-			roleSet.add(roleModel);
-		}
+		
+//		Roles arole = roleRepo.findByRoleName(adminRole);
+//		Set<Roles> roleSet = new HashSet<>();
+//		Roles roleModel = arole;
+//		if (roleModel != null) {
+//			roleSet.add(roleModel);
+//		}
 
 		/*
 		 * Getting Admin details from SignUp Form and Saving At UserDetails Document
 		 */
-		Users udm = new Users();
-		udm.setEmail(regDto.getEmail());
-		udm.setRoleName(roleSet);		
-		String encryptedPasswordForUserDoc = passwordEncoder.encode(regDto.getPassword());
-		udm.setPassword(encryptedPasswordForUserDoc);
-		DateUtils.setBaseData(udm, "SYSTEM");
-		System.out.println("Udm"+udm.getCreatedAt());
-		userRepo.save(udm);
+//		Users udm = new Users();
+//		udm.setEmail(regDto.getEmail());
+//		udm.setRoleName(roleSet);		
+//		String encryptedPasswordForUserDoc = passwordEncoder.encode(regDto.getPassword());
+//		udm.setPassword(encryptedPasswordForUserDoc);
+//		DateUtils.setBaseData(udm, "SYSTEM");
+//		System.out.println("Udm"+udm.getCreatedAt());
+//		userRepo.save(udm);
 		/*
 		 * 
 		 * Saving Registration or SignUp details At Registration Document
@@ -214,9 +219,11 @@ public class RegistrationManagerImpl implements RegistrationManager {
 		 */
 		String encryptPasswordForReg = passwordEncoder.encode(regModel.getPassword());
 		regModel.setPassword(encryptPasswordForReg);
+		DateUtils.setBaseData(regModel, "System");
 		registrationRepo.save(regModel);
 
 		return ResponseHandler.responseBuilder(HttpStatus.ACCEPTED, "Saved");
+		}
 	}
 	
 	@Override

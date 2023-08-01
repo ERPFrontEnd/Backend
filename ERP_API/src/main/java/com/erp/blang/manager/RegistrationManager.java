@@ -14,8 +14,8 @@ public interface RegistrationManager extends AbstractService<RegistrationDto> {
 
 	public ResponseEntity<Object> otpVerify(OtpDto otp);
 
-	public ResponseEntity<Object> mobileOtpSender(RegistrationDto mobileNumber);
-
-	public ResponseEntity<Object> voiceOtpSender(RegistrationDto mobileNo);
+//	public ResponseEntity<Object> mobileOtpSender(RegistrationDto mobileNumber);
+//
+//	public ResponseEntity<Object> voiceOtpSender(RegistrationDto mobileNo);
 
 }

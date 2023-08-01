@@ -11,8 +11,8 @@ import com.erp.blang.model.Registration;
 @Repository
 public interface RegistrationRepository extends MongoRepository<Registration, String> {
 
-	Set<Registration> findByEmail(String mail);
+	Registration findByEmail(String mail);
 
-	Set<Registration> findByMobileNo(String mobileNo);
+//	Set<Registration> findByMobileNo(String mobileNo);
 
 }

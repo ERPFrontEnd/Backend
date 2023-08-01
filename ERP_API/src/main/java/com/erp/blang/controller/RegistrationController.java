@@ -35,19 +35,19 @@ public class RegistrationController {
 		return registrationManager.mailSender(mail);
 	}
 
-	@CrossOrigin
-	@PostMapping(value = "/mobileOTP")
-	public ResponseEntity<Object> mobileOtp(@RequestBody RegistrationDto mobileNo) {
-		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
-		return registrationManager.mobileOtpSender(mobileNo);
-	}
+//	@CrossOrigin
+//	@PostMapping(value = "/mobileOTP")
+//	public ResponseEntity<Object> mobileOtp(@RequestBody RegistrationDto mobileNo) {
+//		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+//		return registrationManager.mobileOtpSender(mobileNo);
+//	}
 
-	@CrossOrigin
-	@PostMapping(value = "/voiceOTP")
-	public ResponseEntity<Object> voiceOtp(@RequestBody RegistrationDto mobileNo)  {
-		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
-		return registrationManager.voiceOtpSender(mobileNo);
-	}
+//	@CrossOrigin
+//	@PostMapping(value = "/voiceOTP")
+//	public ResponseEntity<Object> voiceOtp(@RequestBody RegistrationDto mobileNo)  {
+//		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+//		return registrationManager.voiceOtpSender(mobileNo);
+//	}
 
 	@CrossOrigin
 	@PostMapping(value = "/verifyOTP")
