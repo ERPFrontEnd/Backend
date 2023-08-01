@@ -10,6 +10,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -42,20 +46,20 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private JWTUtility utility;
 
-//	 @Autowired
-//	 private AuthenticationManager authenticationManager;
+	 @Autowired
+	 private AuthenticationManager authenticationManager;
 
 	public ResponseEntity<Object> createJwtToken(LoginRequest loginReq) {
 		String email = loginReq.getUserName();
 		String password = loginReq.getPassword();
 		final UserDetails userDetails = loadUserByUsername(email);
-//		boolean login=authenticate(email, password);
+		boolean login=authenticate(email, password);
 		String newGeneratedToken = utility.generateToken(userDetails);
 		LoginResponse lr = new LoginResponse();
 
 		
 //		Users users = userRepo.findByEmail(email);
-		if(userDetails != null && password != null && email != null) {
+		if(login && userDetails != null && password != null && email != null) {
 			
 //		BeanUtils.copyProperties(users, lr);
 		
@@ -95,12 +99,12 @@ public class UserService implements UserDetailsService {
 /*
  * done
  */
-//	private boolean authenticate(String email, String password) 	 {
-//		try {
-//		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-//			return true;
-//		} catch (DisabledException | BadCredentialsException e) {
-//			return false;
-//		} 
-//	}
+	private boolean authenticate(String email, String password) 	 {
+		try {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+			return true;
+		} catch (DisabledException | BadCredentialsException e) {
+			return false;
+		} 
+	}
 }
